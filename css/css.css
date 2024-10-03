@@ -1,0 +1,73 @@
+
+*{
+    padding: 0;
+    margin: 0;
+}
+.header{
+    width: 100%;
+    height: 100vh;
+    
+}
+.blok{
+    background-color: black;
+    width: 100%;
+    height: 9.1vh;
+    position: relative;
+    /* position: absolute; */
+    min-width: 29vh;
+    
+  
+    
+}
+.blok h1 {
+    color: white;
+    text-align: center;
+    font-size: 8vh;
+    border:solid;
+    border-color: white;
+    
+}
+.levaStrana{
+
+    /* position: absolute; */
+    width: 29vh;
+    height: auto;
+    background-color: grey;
+    border:solid;
+
+    border-color: black;
+    
+
+
+}
+.levaStrana p{
+
+    font-size: 3vh;
+    padding:8px;
+    font-weight: bold;
+    color:black;
+}
+p:hover{
+    color:white;
+    transition: color 0.3s ease;
+}
+.levaStrana ul{
+padding-left: 5vh;
+color:black;
+font-weight: bold;
+font-size: 3vh;
+overflow: hidden;
+word-wrap: break-word;
+text-overflow: ellipsis;
+
+}
+.levaStrana li{
+    padding-top: 40px;
+    position: flex;
+}
+
+li:hover{
+    color:white;
+    transition: color 0.3s ease;
+   
+}
