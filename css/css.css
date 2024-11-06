@@ -1,73 +1,98 @@
-
-*{
-    padding: 0;
+/* Reset základního stylu */
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
-.header{
+
+/* Navbar */
+.header {
     width: 100%;
-    height: 100vh;
-    
-}
-.blok{
-    background-color: black;
-    width: 100%;
-    height: 9.1vh;
-    position: relative;
-    /* position: absolute; */
-    min-width: 29vh;
-    
-  
-    
-}
-.blok h1 {
+    background-color: #333;
     color: white;
-    text-align: center;
-    font-size: 8vh;
-    border:solid;
-    border-color: white;
-    
-}
-.levaStrana{
-
-    /* position: absolute; */
-    width: 29vh;
-    height: auto;
-    background-color: grey;
-    border:solid;
-
-    border-color: black;
-    
-
-
-}
-.levaStrana p{
-
-    font-size: 3vh;
-    padding:8px;
-    font-weight: bold;
-    color:black;
-}
-p:hover{
-    color:white;
-    transition: color 0.3s ease;
-}
-.levaStrana ul{
-padding-left: 5vh;
-color:black;
-font-weight: bold;
-font-size: 3vh;
-overflow: hidden;
-word-wrap: break-word;
-text-overflow: ellipsis;
-
-}
-.levaStrana li{
-    padding-top: 40px;
-    position: flex;
+    padding: 1rem 0;
 }
 
-li:hover{
-    color:white;
-    transition: color 0.3s ease;
-   
+.navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+}
+
+.logo {
+    font-size: 2rem;
+    color: white;
+}
+
+.button-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.button-group button {
+    background-color: #009688;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.button-group button:hover {
+    background-color: #00796b;
+}
+
+/* Sidebar */
+.leva-strana {
+    width: 250px;
+    padding: 1rem;
+    background-color: #f3f3f3;
+    border-right: 2px solid #ddd;
+    float: left;
+    height: 100vh;
+}
+
+.vyber label {
+    display: block;
+    margin-top: 1rem;
+    color: #333;
+}
+
+.vyber select,
+.vyber input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Main content area */
+.main-content {
+    margin-left: 250px;
+    padding: 2rem;
+}
+
+/* Základní styl pro formulář */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label,
+form input,
+form select {
+    margin-bottom: 0.5rem;
+}
+
+form input:focus,
+form select:focus {
+    outline: none;
+    border-color: #009688;
 }

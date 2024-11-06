@@ -1,49 +1,50 @@
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Blabolec</title>
     <link rel="stylesheet" href="css/css.css">
-
 </head>
 <body>
-    <div class="header">
-        <div class="blok">
-        <h1>Blabolec</h1>
-            <div class="levaStrana">
-<!-- 
-                <p>- cestina</p>
-                <br>
-                <p>- pravnicka cestina</p>
-                <br>
-                <p>- capkova cestina</p>
-                <br>
-                <p>- moderni cestina</p>
-                <br>
-                <p>- anglictina</p>
-                <br>
-                <p>- latina</p>
-                <br>
-                <p>- nemcina</p> -->
-                <ul>
-                    <li>cestina</li>
-                    <li>cestina pravnicka</li>
-                    <li>capkova cestina</li>
-                    <li>moderni cestina</li>
-                    <li>anglictina</li>
-                    <li>latina</li>
-                    <li style="padding-bottom: 40px;">nemcina</li>
-                    
-                </ul>
-            
+    <!-- Navbar -->
+    <header class="header">
+        <div class="navbar">
+            <h1 class="logo">Blabolec</h1>
+            <div class="button-group">
+                <button onclick="location.href='login/login.html'">Login</button>
+                <button onclick="location.href='signup/signup.html'">Sign Up</button>
             </div>
         </div>
-        
-    </div>
+    </header>
 
-    
+    <!-- Sidebar -->
+    <aside class="leva-strana">
+        <div class="vyber">
+            <form action="" method="post">
+                <label for="vyber">Vyber si jazyk</label>
+                <select id="vyber" name="vyber">
+                    <option value="čeština">Čeština</option>
+                    <option value="pravnická čeština">Právnická čeština</option>
+                    <option value="latina">Latina</option>
+                    <option value="němčina">Němčina</option>
+                    <option value="angličtina">Angličtina</option>
+                </select>
+                <br><br>
+                <label for="odstavce">Počet odstavců:</label>
+                <input type="text" name="odstavce" id="odstavce">
+                <br><br>
+                <label for="slovaOdstavec">Počet slov v jednom odstavci:</label>
+                <input type="text" name="slovaOdstavec" id="slovaOdstavec">
+            </form>
+        </div>
+    </aside>
+
+    <!-- Main content area -->
+    <main class="main-content">
+        <!-- Hlavní obsah zde -->
+    </main>
+
+    <script src="js.js"></script>
 </body>
 </html>
