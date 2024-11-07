@@ -96,3 +96,22 @@ form select:focus {
     outline: none;
     border-color: #009688;
 }
+
+
+.scrollable-block{
+    width: 90%;
+    max-width: 600px;
+    height: 300px;
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(206, 61, 255, 0.327);
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+}
+.scrollable-block p {
+    margin: 0;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
