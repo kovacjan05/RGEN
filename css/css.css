@@ -119,9 +119,102 @@ form select:focus {
     box-shadow: 0 4px 8px rgba(206, 61, 255, 0.327);
     box-sizing: border-box;
     background-color: #f9f9f9;
+    
 }
 .scrollable-block p {
     margin: 0;
     overflow-wrap: break-word;
     white-space: normal;
+}
+  /* Panel s tlačítky */
+  .button-panel {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.button-panel button {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background-color:rgb(212, 212, 212);
+    color: black;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.button-panel button:hover {
+    background-color: #929292;
+}
+
+
+ /* Modal styling */
+ .modal-overlay {
+     position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.error{
+    color: red;
+    display: none; 
+}
+.modal-container {
+    background: rgb(190, 189, 189);
+    margin: auto;
+    margin-top: 25vh;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.modal-container input[type="text"], input[type="password"] {
+    width: 20vh;
+    border-radius: 8px;
+    border: 2px solid #009688;
+    padding: 4px;
+    padding-left: 14px; /* Zvýšené levé odsazení pro více prostoru na začátku */
+
+
+}
+.modal-container
+.blurred {
+    filter: blur(5px);
+    transition: filter 0.3s ease;
+}
+
+.modal-container button[type="submit"]   {
+    background-color: #009688;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 7px;
+    transition: background-color 0.3s ease;
+}
+.modal-container button[type="submit"]:hover {
+    background-color: #00796b;
+}
+
+.close-button {
+    background: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 8px;
+    border: none;
+    font-size: 20px;
+    float: right;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.close-button:hover{
+    background-color:rgb(146, 146, 146)
 }
