@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="cs">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RGEN</title>
     <link rel="stylesheet" href="css/css.css">
 </head>
+
 <body>
     <!-- Navbar -->
     <header class="header">
@@ -49,30 +51,34 @@
             <button id="number-list" title="Číslovaný obsah">1.2.</button>
             <button id="add-dash" title="Přidat pomlčku">-</button>
         </div>
-        
+
         <!-- Scrollable block -->
         <div class="scrollable-block" contenteditable="true">
             <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque perspiciatis est amet vel maxime sint odio eos rem velit? Officiis atque vero voluptatem officia blanditiis pariatur laboriosam explicabo minus repellendus.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque perspiciatis est amet vel maxime sint
+                odio eos rem velit? Officiis atque vero voluptatem officia blanditiis pariatur laboriosam explicabo
+                minus repellendus.
             </p>
         </div>
     </main>
 
-    <!-- login -->
+    <!-- Login -->
     <div class="modal-overlay" id="login-modal">
         <div class="modal-container">
             <button class="close-button" id="close-login-modal">&times;</button>
             <h2>Login</h2>
-            <form>
+            <form action="login/login.php" method="post">
                 <br>
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username">
+                <input type="text" id="username" name="username" required>
                 <br><br>
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password">
-                <br>
-                <label class="error" for="error">* Zadali jste špatné přihlašovací údaje</label>
-                <br><br><br>
+                <input type="password" id="password" name="password" required>
+                <br><br>
+                <div class="error" id="login-error" style="display: none;">
+                    * Zadali jste špatné přihlašovací údaje
+                </div>
+                <br><br>
                 <button type="submit">Přihlásit se</button>
             </form>
         </div>
@@ -83,22 +89,20 @@
         <div class="modal-container">
             <button class="close-button" id="close-signup-modal">&times;</button>
             <h2>Sign Up</h2>
-            <form>
+            <form action="registrace.php" method="post">
                 <br>
                 <label for="firstname">First Name:</label>
-                <input type="text" id="firstname" name="firstname">
+                <input type="text" id="firstname" name="firstname" required>
                 <br>
                 <label for="lastname">Last Name:</label>
-                <input type="text" id="lastname" name="lastname">
+                <input type="text" id="lastname" name="lastname" required>
                 <br>
                 <label for="signup-username">Username:</label>
-                <input type="text" id="signup-username" name="signup-username">
+                <input type="text" id="signup-username" name="signup-username" required>
                 <br>
                 <label for="signup-password">Password:</label>
-                <input type="password" id="signup-password" name="signup-password">
-                <br>
-                <label class="error" for="error">* Zadali jste špatné přihlašovací údaje</label>
-                <br><br><br>
+                <input type="password" id="signup-password" name="signup-password" required>
+                <br><br>
                 <button type="submit">Submit</button>
             </form>
         </div>
@@ -106,4 +110,5 @@
 
     <script src="js.js"></script>
 </body>
+
 </html>

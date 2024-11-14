@@ -1,47 +1,36 @@
 <?php
-session_start(); 
+session_start();
 
-$servername = "localhost";
-$username = "root"; 
-$password = "";   
-$dbname = "uzivatele";
+try {
+    // Připojení k SQLite databázi
+    $database = new PDO('sqlite:db/usersDB.db');
+    $database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $user = $_POST['username'];
+        $pass = $_POST['password'];
 
-if ($conn->connect_error) {
-    die("Chyba při připojení: " . $conn->connect_error);
-}
+        // SQL dotaz pro výběr uživatele
+        $sql = "SELECT * FROM users WHERE username = :username";
+        $stmt = $database->prepare($sql);
+        $stmt->bindParam(':username', $user, PDO::PARAM_STR);
+        $stmt->execute();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user = $_POST['username'];
-    $pass = $_POST['password'];
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $sql = "SELECT * FROM users WHERE username = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $user);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
- 
-        $row = $result->fetch_assoc();
-        
- 
-        if (password_verify($pass, $row['password'])) {
-            
-            $_SESSION['username'] = $user;
-            echo "Přihlášení úspěšné! Vítej, " . $user;
-
+        if ($row) {
+            // Ověření hesla
+            if (password_verify($pass, $row['password'])) {
+                // Vytvoření session
+                $_SESSION['username'] = $user;
+                echo "Přihlášení úspěšné! Vítej, " . $user;
+            } else {
+                echo "Nesprávné heslo!";
+            }
         } else {
-            
-            echo "Nesprávné heslo!";
+            echo "Uživatelské jméno neexistuje!";
         }
-    } else {
-        echo "Uživatelské jméno neexistuje!";
     }
-
-    $stmt->close();
+} catch (PDOException $e) {
+    echo "Chyba připojení: " . $e->getMessage();
 }
-
-$conn->close();
-?>

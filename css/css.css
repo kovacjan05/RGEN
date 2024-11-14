@@ -15,8 +15,8 @@
 }
 
 .navbar {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 100%;
+    /* Zajištění, že navbar bude přes celou šířku */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -34,7 +34,7 @@
 }
 
 .button-group button {
-    background-color: #009688;
+    background-color: #c700b3;
     color: white;
     border: none;
     padding: 0.5rem 1rem;
@@ -45,10 +45,11 @@
 }
 
 .button-group button:hover {
-    background-color: #00796b;
+    background-color: #74028e;
+    box-shadow: 0px 4px 20px #d246d795;
 }
 
-/* Sidebar */
+
 .leva-strana {
     width: 250px;
     padding: 1rem;
@@ -56,6 +57,35 @@
     border-right: 2px solid #ddd;
     float: left;
     height: 100vh;
+}
+
+
+.main-content {
+    margin-left: 250px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Středění obsahu */
+}
+
+/* Responsive styling */
+@media (max-width: 425px) {
+
+
+    .leva-strana {
+        width: 100%;
+        float: none;
+        height: auto;
+        border-right: none;
+        border-top: 2px solid #ddd;
+        margin-top: 1rem;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 1rem;
+    }
 }
 
 .vyber label {
@@ -71,12 +101,6 @@
     margin-top: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 4px;
-}
-
-/* Main content area */
-.main-content {
-    margin-left: 250px;
-    padding: 2rem;
 }
 
 /* Základní styl pro formulář */
@@ -97,19 +121,18 @@ form select:focus {
     border-color: #009688;
 }
 
-
 .posunuti {
     transition: margin-top 0.3s ease;
 }
 
-/* Když je select otevřený, posune se ostatní obsah */
+
 .posunuto-dolu {
-    margin-top: 80px; /* Výška posunu; můžeš upravit podle potřeby */
+    margin-top: 80px;
+
 }
 
-
-.scrollable-block{
-    width: 90%;
+.scrollable-block {
+    width: 100%;
     max-width: 600px;
     height: 300px;
     padding: 16px;
@@ -119,25 +142,29 @@ form select:focus {
     box-shadow: 0 4px 8px rgba(206, 61, 255, 0.327);
     box-sizing: border-box;
     background-color: #f9f9f9;
-    
+    text-align: center;
 }
+
 .scrollable-block p {
     margin: 0;
     overflow-wrap: break-word;
     white-space: normal;
 }
-  /* Panel s tlačítky */
-  .button-panel {
+
+/* Panel s tlačítky */
+.button-panel {
     display: flex;
     gap: 8px;
     margin-bottom: 10px;
+    justify-content: center;
+
 }
 
 .button-panel button {
     width: 36px;
     height: 36px;
     border: none;
-    background-color:rgb(212, 212, 212);
+    background-color: rgb(212, 212, 212);
     color: black;
     cursor: pointer;
     border-radius: 4px;
@@ -148,10 +175,9 @@ form select:focus {
     background-color: #929292;
 }
 
-
- /* Modal styling */
- .modal-overlay {
-     position: fixed;
+/* Modal styling */
+.modal-overlay {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -162,10 +188,12 @@ form select:focus {
     align-items: center;
     z-index: 1000;
 }
-.error{
+
+.error {
     color: red;
-    display: none; 
+    display: none;
 }
+
 .modal-container {
     background: rgb(190, 189, 189);
     margin: auto;
@@ -175,23 +203,32 @@ form select:focus {
     width: 300px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-.modal-container input[type="text"], input[type="password"] {
+
+.modal-container input[type="text"],
+input[type="password"] {
     width: 20vh;
     border-radius: 8px;
-    border: 2px solid #009688;
+    border: 2px solid #74028e;
     padding: 4px;
-    padding-left: 14px; /* Zvýšené levé odsazení pro více prostoru na začátku */
-
+    padding-left: 14px;
 
 }
+
+/* Změna barvy rámečku při focusu */
+.modal-container input[type="text"]:focus,
+.modal-container input[type="password"]:focus {
+    border-color: #c700b3;
+
+}
+
 
 .blurred {
     filter: blur(5px);
     transition: filter 0.3s ease;
 }
 
-.modal-container button[type="submit"]   {
-    background-color: #009688;
+.modal-container button[type="submit"] {
+    background-color: #c321b2;
     color: white;
     border: none;
     padding: 0.5rem 1rem;
@@ -200,8 +237,9 @@ form select:focus {
     border-radius: 7px;
     transition: background-color 0.3s ease;
 }
+
 .modal-container button[type="submit"]:hover {
-    background-color: #00796b;
+    background-color: #74028e;
 }
 
 .close-button {
@@ -215,6 +253,7 @@ form select:focus {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-.close-button:hover{
-    background-color:rgb(146, 146, 146)
+
+.close-button:hover {
+    background-color: rgb(146, 146, 146);
 }
