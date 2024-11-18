@@ -1,5 +1,5 @@
 <?php
-
+echo "hello";
 // Připojení k databázi
 
 $conn = new mysqli('localhost', 'root', 'Rocnikac69', 'db');
@@ -36,4 +36,3 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
-?>

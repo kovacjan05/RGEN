@@ -18,7 +18,7 @@ $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    
+
     // Ověření hesla
     if (password_verify($password, $row['password_hash'])) {
         echo "Přihlášení úspěšné!";
@@ -34,4 +34,3 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
-?>

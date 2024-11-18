@@ -240,6 +240,7 @@ input[type="password"] {
 
 .modal-container button[type="submit"]:hover {
     background-color: #74028e;
+    box-shadow: 0 4px 8px #c321b2;
 }
 
 .close-button {
