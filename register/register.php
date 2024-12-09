@@ -1,13 +1,8 @@
 <?php
-
-
-echo "hello";
-
 // Zahrnutí souboru s připojením k databázi
-include 'conn_db/connected_database.php';
-echo "hello";
+require_once '../conn_db/connected_database.php';  // Opravená cesta k souboru připojení k databázi
 
-// Kontrola, zda je proměnná $conn nastavena
+// Kontrola, zda je připojení platné
 if (!$conn) {
     die("Chyba: Nepodařilo se připojit k databázi.");
 }
@@ -15,15 +10,17 @@ if (!$conn) {
 // Získání vstupů z formuláře
 $username = $_POST['username'] ?? null;
 $password = $_POST['password'] ?? null;
+$firstname = $_POST['firstname'] ?? null;
+$lastname = $_POST['lastname'] ?? null;
 
 // Ověření, že jsou vstupy vyplněny
-if (!$username || !$password) {
-    die("Chyba: Uživatelské jméno a heslo musí být vyplněné.");
+if (!$username || !$password || !$firstname || !$lastname) {
+    die("Chyba: Všechna pole musí být vyplněná.");
 }
 
 // Kontrola, zda uživatel již existuje
-$stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
-$stmt->bind_param("s", var: $username);
+$stmt = $conn->prepare("SELECT * FROM slovniky.users WHERE username = ?");
+$stmt->bind_param("s", $username);  // Parametr typu string pro username
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -31,11 +28,11 @@ if ($result->num_rows > 0) {
     echo "Uživatel s tímto jménem již existuje.";
 } else {
     // Hashování hesla
-    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+    //$hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
     // Vložení nového uživatele
-    $stmt = $conn->prepare("INSERT INTO users (username, password_hash) VALUES (?, ?)");
-    $stmt->bind_param("ss", $username, $hashed_password);
+    $stmt = $conn->prepare("INSERT INTO slovniky.users (username, password, firstName, lastName) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $username, $password, $firstname, $lastname);  // Parametry typu string pro všechny sloupce
     if ($stmt->execute()) {
         echo "Registrace úspěšná!";
     } else {
@@ -44,49 +41,3 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
-?>
-
-
-<?php
-
-// echo "hello";
-
-// if (file_exists('db_connect.php')) {
-//     include 'db_connect.php';
-
-    
-// // Získání vstupů z formuláře
-// $username = $_POST['username'];
-// $password = $_POST['password'];
-
-// // Kontrola, zda uživatel již existuje
-// $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
-// $stmt->bind_param("s", $username);
-// $stmt->execute();
-// $result = $stmt->get_result();
-
-// if ($result->num_rows > 0) {
-//     echo "Uživatel s tímto jménem již existuje.";
-// } else {
-//     // Hashování hesla
-//     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-//     // Vložení nového uživatele
-//     $stmt = $conn->prepare("INSERT INTO users (username, password_hash) VALUES (?, ?)");
-//     $stmt->bind_param("ss", $username, $hashed_password);
-//     if ($stmt->execute()) {
-//         echo "Registrace úspěšná!";
-//     } else {
-//         echo "Chyba při registraci: " . $stmt->error;
-//     }
-// }
-
-// $conn->close();
-
-// }
-
-// else {
-
-//     echo 'Soubor db_connect.php nebyl nalezen.';
-// }
-?>

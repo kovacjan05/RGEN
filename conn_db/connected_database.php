@@ -1,21 +1,18 @@
 <?php
-echo "Připojení k databázi";
+echo "Připojení k databázi <br><br>";
 
 // Nastavení připojení
 $servername = 'localhost';
 $username = 'root';
 $password = 'Rocnikac69';
-$dbname = 'db';
+$dbname = 'slovniky';
 
 // Zkuste se připojit k databázi
-try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    // Nastavte vlastnosti PDO, jako je chybový režim (OPTION_EXCEPTION) pro lepší zachycení chyb
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    echo "Úspěšně připojeno k databázi";
-} catch (PDOException $e) {
-    // Pokud se něco pokazí při připojování, zobrazí se chybová zpráva
-    echo "Chyba připojení k databázi: " . $e->getMessage();
+// Ověření připojení
+if ($conn->connect_error) {
+    die("Chyba připojení k databázi: " . $conn->connect_error);
 }
-?>
+
+echo "Úspěšně připojeno k databázi";
