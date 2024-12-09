@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="cs">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RGEN</title>
     <link rel="stylesheet" href="css/css.css">
 </head>
+
 <body>
     <!-- Navbar -->
     <header class="header">
@@ -13,7 +15,7 @@
             <h1 class="logo">RGEN</h1>
             <div class="button-group">
                 <button id="login-button">Login</button>
-                <button id="signup-button">Sign Up</button>
+                <button id="signup-button">Registrace</button>
             </div>
         </div>
     </header>
@@ -49,11 +51,13 @@
             <button id="number-list" title="Číslovaný obsah">1.2.</button>
             <button id="add-dash" title="Přidat pomlčku">-</button>
         </div>
-        
+
         <!-- Scrollable block -->
         <div class="scrollable-block" contenteditable="true">
             <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque perspiciatis est amet vel maxime sint odio eos rem velit? Officiis atque vero voluptatem officia blanditiis pariatur laboriosam explicabo minus repellendus.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque perspiciatis est amet vel maxime sint
+                odio eos rem velit? Officiis atque vero voluptatem officia blanditiis pariatur laboriosam explicabo
+                minus repellendus.
             </p>
         </div>
     </main>
@@ -82,7 +86,7 @@
     <div class="modal-overlay" id="signup-modal">
         <div class="modal-container">
             <button class="close-button" id="close-signup-modal">&times;</button>
-            <h2>Sign Up</h2>
+            <h2>Registrace</h2>
             <form method="POST" action="register/register.php">
                 <br>
                 <label for="firstname">First Name:</label>
@@ -99,11 +103,12 @@
                 <br>
                 <label class="error" for="error">* Zadali jste špatné přihlašovací údaje</label>
                 <br><br><br>
-                <button type="submit">Submit</button>
+                <button type="submit">registrovat se</button>
             </form>
         </div>
     </div>
 
     <script src="js.js"></script>
 </body>
+
 </html>
