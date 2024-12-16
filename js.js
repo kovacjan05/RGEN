@@ -137,7 +137,7 @@ closeSignupModalButton.addEventListener('click', () => {
 
 
 
-alert("ahoj");
+
 function openUserMenu() {
     const logoutBox = document.querySelector('.logoutBox');
 
