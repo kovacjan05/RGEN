@@ -88,6 +88,41 @@
     }
 }
 
+.user-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.user-button:hover {
+    background-color: #2980b9;
+}
+
+.logoutBox {
+
+    display: none;
+    position: absolute;
+    background-color: rgb(204, 2, 255);
+    right: 0;
+    width: 200px;
+    height: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+    z-index: 10000;
+
+}
+
+
+
 .vyber label {
     display: block;
     margin-top: 1rem;

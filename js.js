@@ -72,7 +72,7 @@ addDashButton.addEventListener('click', () => {
 
     if (selection.rangeCount > 0) {
         // Vytvoříme nový odstavec
-        const paragraph = document.createElement('p'); 
+        const paragraph = document.createElement('p');
 
         // Vytvoříme pomlčku a mezeru, které budou na novém řádku
         const dashText = document.createTextNode(' — '); // Pomlčka a mezera
@@ -86,10 +86,10 @@ addDashButton.addEventListener('click', () => {
         paragraph.appendChild(dashText);
 
         // Vložíme nový odstavec na pozici kurzoru
-        range.insertNode(paragraph); 
+        range.insertNode(paragraph);
 
-      
-       
+
+
 
         // Umístíme kurzor na konec textu "Pokračujte zde..."
         const newRange = document.createRange();
@@ -134,3 +134,32 @@ closeSignupModalButton.addEventListener('click', () => {
     signupModal.style.display = 'none';
     contentToBlur.forEach(element => element.classList.remove('blurred'));
 });
+
+
+
+alert("ahoj");
+function openUserMenu() {
+    const logoutBox = document.querySelector('.logoutBox');
+
+    // Přepínání viditelnosti boxu
+    if (logoutBox.style.display === 'none' || logoutBox.style.display === '') {
+        logoutBox.style.display = 'block';
+        alert("funguje");
+    } else {
+        logoutBox.style.display = 'none';
+    }
+}
+
+
+document.getElementById('logout-button').addEventListener('click', function () {
+    fetch('logout.php')
+        .then(response => {
+            if (response.ok) {
+                window.location.reload(); // Obnoví stránku po úspěšném odhlášení
+            } else {
+                console.error('Chyba při odhlašování.');
+            }
+        });
+});
+
+

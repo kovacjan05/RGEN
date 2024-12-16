@@ -25,11 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($password === $row['password']) {  // Přímé porovnání hesel bez hashování
                 // Přihlášení úspěšné
 
-                echo " <br><br>vitej";
-                // session_start();
-                // $_SESSION['username'] = $username;
-                // header("Location: dashboard.php");
-                // exit;
+                //echo " <br><br>vitej";
+                session_start();
+                $_SESSION['username'] = $username;
+                header("Location: index.php");
+                exit;
             } else {
                 echo "Nesprávné heslo.";
             }
