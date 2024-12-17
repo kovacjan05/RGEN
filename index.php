@@ -70,6 +70,15 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
     </aside>
     <!-- Prava strana -->
     <div class="logoutBox">
+        <div class="logoutBoxText">
+            <div class="nadpis">
+                <?php echo "$username";?>
+            </div>
+            <br>
+            <br>
+            <li>Naposledy uložený text</li>
+        </div>
+
         <button onclick="window.location.href='logout/logout.php'">Odhlásit se</button>
     </div>
 
