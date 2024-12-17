@@ -28,7 +28,7 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
             <div class="button-group">
                 <?php if ($isLoggedIn): ?>
                     <!-- Tlačítko s iniciálou uživatelského jména -->
-                    <button class="user-button" onclick="openUserMenu()" id="logoutButton">
+                    <button class="user-button" onclick="openUserMenu()">
                         <?php echo strtoupper($username[0]); // První písmeno uživatelského jména 
                         ?>
                     </button>
@@ -72,6 +72,8 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
     <div class="logoutBox">
         <button onclick="window.location.href='logout/logout.php'">Odhlásit se</button>
     </div>
+
+
 
     <main class="main-content">
         <!-- Panel s tlačítky pro úpravy textu -->

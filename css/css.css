@@ -93,7 +93,7 @@
 
     display: none;
     position: absolute;
-    background-color:#333;
+    background-color: #333;
     right: 0;
     margin-right: 10px;
     margin-top: 10px;
@@ -105,7 +105,8 @@
     z-index: 10000;
 
 }
-.logoutBox button{
+
+.logoutBox button {
     background-color: #c700b3;
     color: white;
     border: none;
@@ -118,7 +119,8 @@
     border-radius: 4px;
     transition: background-color 0.3s ease;
 }
-.logoutBox button:hover{
+
+.logoutBox button:hover {
     background-color: #74028e;
     box-shadow: 0px 4px 20px #d246d795;
 }

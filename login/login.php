@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 //echo " <br><br>vitej";
                 session_start();
                 $_SESSION['username'] = $username;
-                header("Location: index.php");
+                header("Location: ../index.php");
                 exit;
             } else {
                 echo "Nesprávné heslo.";

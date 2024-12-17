@@ -100,7 +100,7 @@ addDashButton.addEventListener('click', () => {
     }
 });
 
-////////////        modal login       ////////////
+//////////        modal login       ////////////
 
 
 const loginButton = document.getElementById('login-button');
@@ -111,25 +111,25 @@ const closeLoginModalButton = document.getElementById('close-login-modal');
 const closeSignupModalButton = document.getElementById('close-signup-modal');
 const contentToBlur = [document.querySelector('main'), document.querySelector('.header'), document.querySelector('.leva-strana')];
 
-// Open login modal
+//Open login modal
 loginButton.addEventListener('click', () => {
     loginModal.style.display = 'flex';
     contentToBlur.forEach(element => element.classList.add('blurred'));
 });
 
-// Close login modal
+//Close login modal
 closeLoginModalButton.addEventListener('click', () => {
     loginModal.style.display = 'none';
     contentToBlur.forEach(element => element.classList.remove('blurred'));
 });
 
-// Open signup modal
+//Open signup modal
 signupButton.addEventListener('click', () => {
     signupModal.style.display = 'flex';
     contentToBlur.forEach(element => element.classList.add('blurred'));
 });
 
-// Close signup modal
+//Close signup modal
 closeSignupModalButton.addEventListener('click', () => {
     signupModal.style.display = 'none';
     contentToBlur.forEach(element => element.classList.remove('blurred'));
@@ -137,14 +137,14 @@ closeSignupModalButton.addEventListener('click', () => {
 
 
 
-
 function openUserMenu() {
+
     const logoutBox = document.querySelector('.logoutBox');
 
-    // Přepínání viditelnosti boxu
+    //Přepínání viditelnosti boxu
     if (logoutBox.style.display === 'none' || logoutBox.style.display === '') {
         logoutBox.style.display = 'block';
-        alert("funguje");
+
     } else {
         logoutBox.style.display = 'none';
     }
@@ -155,11 +155,13 @@ document.getElementById('logout-button').addEventListener('click', function () {
     fetch('logout.php')
         .then(response => {
             if (response.ok) {
-                window.location.reload(); // Obnoví stránku po úspěšném odhlášení
+                window.location.reload();
             } else {
                 console.error('Chyba při odhlašování.');
             }
         });
 });
+
+
 
 
