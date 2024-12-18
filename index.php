@@ -14,11 +14,28 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RGEN</title>
     <link rel="stylesheet" href="css/css.css">
-    <style>
-
-    </style>
 
 </head>
+<?php
+$errors = [];
+$submitData =[];
+if ($_SERVER['REQUEST_METHOD']==="POST") {
+    $submitData=[
+        "firstname"=>trim($_POST['firstname']??''),
+        "lastname"=>trim($_POST['lastname']??''),
+        "username"=>trim($_POST['username']??''),
+        "password"=>trim($_POST['password']??''),
+    ];
+    if($submitData['firstname'] === "") $errors[] = "Chybí jméno";
+    if($submitData['lastname'] === "") $errors[] = "Chybí příjmení";
+    if($submitData['username'] === "") $errors[] = "Chybí uživatelské jméno";
+    if($submitData['password'] === "" || strlen($submitData['password']<8)) $errors[] = "Heslo musí obsahovat alespň 8 znaků";
+}
+
+?>
+
+
+
 
 <body>
     <!-- Navbar -->
@@ -133,16 +150,16 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
             <form method="POST" action="register/register.php">
                 <br>
                 <label for="firstname">First Name:</label>
-                <input type="text" id="firstname" name="firstname">
+                <input type="text" id="firstname" name="firstname"value="<?=htmlspecialchars($submitData['firstname']??'')?>">
                 <br>
                 <label for="lastname">Last Name:</label>
-                <input type="text" id="lastname" name="lastname">
+                <input type="text" id="lastname" name="lastname"value="<?=htmlspecialchars($submitData['lastname']??'')?>">
                 <br>
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username">
+                <input type="text" id="username" name="username"value="<?=htmlspecialchars($submitData['username']??'')?>">
                 <br>
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password" name="password"value="<?=htmlspecialchars($submitData['password']??'')?>">
                 <br>
                 <label class="error" for="error">* Zadali jste špatné přihlašovací údaje</label>
                 <br><br><br>

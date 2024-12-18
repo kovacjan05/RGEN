@@ -86,7 +86,17 @@
         padding: 1rem;
     }
 }
-
+.alert{
+    padding:10px;
+    margin:5px  0;
+    color: #fff;
+    background-color: #f44336;
+    border-radius: 3px;
+    transition: opacity 0.5s ease-out;
+}
+.alert.fade-out{
+    opacity: 0;
+}
 
 .logoutBox {
 

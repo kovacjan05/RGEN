@@ -162,6 +162,36 @@ document.getElementById('logout-button').addEventListener('click', function () {
         });
 });
 
+//////////////// alert registr/////////////////
+function showAlert(message){
+    const alert = document.createElement('div');
+    alert.classList.add('alert');
+    alert.textContent=message;
 
+    const alertContainer = document.getElementById('alert-container');
+    alertContainer.appendChild(alert);
+    serTimeout(()=>{
+        alert.remove();
+    },6000);
+}
+function validateForm(event){
+    const firstname=document.getElementById('firstname').ariaValueMax.trim();
+    const lastname=document.getElementById('lastname').ariaValueMax.trim();
+    const username=document.getElementById('username').ariaValueMax.trim();
+    const password=document.getElementById('password').ariaValueMax.trim();
+    let errors=[];
+    if(firstname==="")errors.push("Chybí jméno");
+    if(lastname==="")errors.push("Chybí příjmení");
+    if(username==="")errors.push("Chybí uživatelské jméno");
+    if(password===""|| password.length < 8)errors.push("Heslo musí obsahovat alespň 8 znaků");
 
+    if (errors.length>0) {
+        event.preventDefault();
+        errors.forEach(error => showAlert(error));
+        return false;
+    }
+    showAlert("Úspěšné přihlášení");
+    return true;
+}
+document.getElementById('signup-modal').addEventListener('submit',validateForm);
 
