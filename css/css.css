@@ -65,7 +65,6 @@
     padding: 2rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
     /* Středění obsahu */
 }
 
@@ -91,7 +90,7 @@
 
 .logoutBox {
 
-    display: block;
+    display: none;
     position: absolute;
     background-color: #333;
     right: 0;
@@ -104,14 +103,16 @@
     z-index: 10000;
 
 }
-.logoutBoxText{
+
+.logoutBoxText {
     padding-top: 25px;
     width: 100%;
     height: 80%;
     text-align: center;
-    color:black;
+    color: rgb(208, 208, 208);
 }
-.logoutBoxText .nadpis{
+
+.logoutBoxText .nadpis {
     font-size: 3.5vh;
 }
 
@@ -126,7 +127,7 @@
     bottom: 0;
     transition: background-color 0.3s ease;
     border-radius: 0 0 8px 8px;
-    
+
 }
 
 .logoutBox button:hover {
@@ -189,7 +190,7 @@ form select:focus {
     box-shadow: 0 4px 8px rgba(206, 61, 255, 0.327);
     box-sizing: border-box;
     background-color: #f9f9f9;
-    text-align: center;
+
 }
 
 .scrollable-block p {
@@ -203,7 +204,7 @@ form select:focus {
     display: flex;
     gap: 8px;
     margin-bottom: 10px;
-    justify-content: center;
+
 
 }
 

@@ -72,7 +72,7 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
     <div class="logoutBox">
         <div class="logoutBoxText">
             <div class="nadpis">
-                <?php echo "$username libovaPrcina";?>
+                <?php echo "$username"; ?>
             </div>
             <br>
             <br>
