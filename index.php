@@ -18,18 +18,18 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
 </head>
 <?php
 $errors = [];
-$submitData =[];
-if ($_SERVER['REQUEST_METHOD']==="POST") {
-    $submitData=[
-        "firstname"=>trim($_POST['firstname']??''),
-        "lastname"=>trim($_POST['lastname']??''),
-        "username"=>trim($_POST['username']??''),
-        "password"=>trim($_POST['password']??''),
+$submitData = [];
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    $submitData = [
+        "firstname" => trim($_POST['firstname'] ?? ''),
+        "lastname" => trim($_POST['lastname'] ?? ''),
+        "username" => trim($_POST['username'] ?? ''),
+        "password" => trim($_POST['password'] ?? ''),
     ];
-    if($submitData['firstname'] === "") $errors[] = "Chybí jméno";
-    if($submitData['lastname'] === "") $errors[] = "Chybí příjmení";
-    if($submitData['username'] === "") $errors[] = "Chybí uživatelské jméno";
-    if($submitData['password'] === "" || strlen($submitData['password']<8)) $errors[] = "Heslo musí obsahovat alespň 8 znaků";
+    if ($submitData['firstname'] === "") $errors[] = "Chybí jméno";
+    if ($submitData['lastname'] === "") $errors[] = "Chybí příjmení";
+    if ($submitData['username'] === "") $errors[] = "Chybí uživatelské jméno";
+    if ($submitData['password'] === "" || strlen($submitData['password'] < 8)) $errors[] = "Heslo musí obsahovat alespň 8 znaků";
 }
 
 ?>
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD']==="POST") {
     <!-- Sidebar -->
     <aside class="leva-strana">
         <div class="vyber">
-            <form action="" method="post">
+            <form action="gen_text/generate_text.php" method="post">
                 <label for="vyber">Vyber si jazyk</label>
                 <select id="vyber" name="vyber">
                     <option value="čeština">Čeština</option>
@@ -73,6 +73,8 @@ if ($_SERVER['REQUEST_METHOD']==="POST") {
                     <option value="latina">Latina</option>
                     <option value="němčina">Němčina</option>
                     <option value="angličtina">Angličtina</option>
+                    <option value="slovenština">Slovenština</option>
+                    <option value="čapkova čeština">Čapkova čeština</option>
                 </select>
                 <br><br>
                 <div class="posunuti">
@@ -81,7 +83,9 @@ if ($_SERVER['REQUEST_METHOD']==="POST") {
                     <br><br>
                     <label for="slovaOdstavec">Počet slov v jednom odstavci:</label>
                     <input type="text" name="slovaOdstavec" id="slovaOdstavec">
+                    <br><br><br><br>
                 </div>
+                <button class="generate-button" type="submit">Generovat text</button>
             </form>
         </div>
     </aside>
@@ -112,10 +116,9 @@ if ($_SERVER['REQUEST_METHOD']==="POST") {
         <!-- Scrollable block -->
         <div class="scrollable-block" contenteditable="true">
             <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque perspiciatis est amet vel maxime sint
-                odio eos rem velit? Officiis atque vero voluptatem officia blanditiis pariatur laboriosam explicabo
-                minus repellendus.
+                Zde se zobrazí vygenerovaný text.
             </p>
+        </div>
         </div>
 
 
@@ -127,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD']==="POST") {
         <div class="modal-container">
             <button class="close-button" id="close-login-modal">&times;</button>
             <h2>Login</h2>
-            <form method="POST" action="login/login.php">
+            <form id="login-form" method="POST" action="login/login.php">
                 <br>
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username">
@@ -135,41 +138,61 @@ if ($_SERVER['REQUEST_METHOD']==="POST") {
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password">
                 <br>
-                <label class="error" for="error">* Zadali jste špatné přihlašovací údaje</label>
+                <label class="error" id="error-message" style="display: none;">* Zadali jste špatné přihlašovací údaje</label>
                 <br><br><br>
                 <button type="submit">Přihlásit se</button>
             </form>
         </div>
     </div>
 
+
     <!-- registr -->
     <div class="modal-overlay" id="signup-modal">
         <div class="modal-container">
             <button class="close-button" id="close-signup-modal">&times;</button>
             <h2>Registrace</h2>
-            <form method="POST" action="register/register.php">
-                <br>
-                <label for="firstname">First Name:</label>
-                <input type="text" id="firstname" name="firstname"value="<?=htmlspecialchars($submitData['firstname']??'')?>">
-                <br>
-                <label for="lastname">Last Name:</label>
-                <input type="text" id="lastname" name="lastname"value="<?=htmlspecialchars($submitData['lastname']??'')?>">
-                <br>
+            <form id="login-form" method="POST" action="login/login.php">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username"value="<?=htmlspecialchars($submitData['username']??'')?>">
+                <input type="text" id="username" name="username">
                 <br>
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password"value="<?=htmlspecialchars($submitData['password']??'')?>">
+                <input type="password" id="password" name="password">
                 <br>
-                <label class="error" for="error">* Zadali jste špatné přihlašovací údaje</label>
-                <br><br><br>
-                <button type="submit">registrovat se</button>
+                <label class="error" id="error-message" style="display: none;">* Zadali jste špatné přihlašovací údaje</label>
+                <br>
+                <button type="submit">Přihlásit se</button>
             </form>
+
         </div>
     </div>
 
     <script src="js.js"></script>
+    <script src="script_errors.js"></script>
+    <!--<script>
+        const loginButton = document.getElementById('login-button');
+        const loginModal = document.getElementById('login-modal');
+        const closeLoginModalButton = document.getElementById('close-login-modal');
+        const errorMessageLabel = document.querySelector('.error');
 
+        // Open login modal
+        loginButton.addEventListener('click', () => {
+            loginModal.style.display = 'flex';
+            contentToBlur.forEach(element => element.classList.add('blurred'));
+        });
+
+        // Close login modal
+        closeLoginModalButton.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+            contentToBlur.forEach(element => element.classList.remove('blurred'));
+        });
+
+        // Show error message if login fails
+        <?php if (!empty($errorMessage)): ?>
+            errorMessageLabel.textContent = "* <?php echo $errorMessage; ?>";
+            loginModal.style.display = 'flex';
+            contentToBlur.forEach(element => element.classList.add('blurred'));
+        <?php endif; ?>
+    </script>-->
 </body>
 
 </html>

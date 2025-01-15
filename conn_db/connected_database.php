@@ -1,6 +1,4 @@
 <?php
-echo "Připojení k databázi <br><br>";
-
 // Nastavení připojení
 $servername = 'localhost';
 $username = 'root';
@@ -14,5 +12,4 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Chyba připojení k databázi: " . $conn->connect_error);
 }
-
-echo "Úspěšně připojeno k databázi";
+$conn->set_charset("utf8");

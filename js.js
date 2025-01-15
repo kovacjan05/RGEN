@@ -1,3 +1,29 @@
+document.querySelector('form').addEventListener('submit', function (event) {
+    event.preventDefault(); // Zabránění odeslání formuláře
+
+    const formData = new FormData(this);
+
+    fetch('gen_text/generate_text.php', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            const textContainer = document.querySelector('.scrollable-block p');
+            textContainer.innerHTML = data.text; // Vložení textu do boxu
+        })
+        .catch(error => {
+            console.error('Chyba při generování textu:', error);
+        });
+});
+
+
+
+
+
+
+
+
 const selectElement = document.getElementById("vyber");
 const posunutiDiv = document.querySelector(".posunuti");
 
@@ -19,6 +45,8 @@ selectElement.addEventListener("change", () => {
 
 // Získání tlačítka pro změnu stylu textu
 const increaseFontButton = document.getElementById('increase-font');
+
+
 
 // Funkce pro ztučnění nebo odtučnění označeného textu
 increaseFontButton.addEventListener('click', () => {
@@ -163,29 +191,29 @@ document.getElementById('logout-button').addEventListener('click', function () {
 });
 
 //////////////// alert registr/////////////////
-function showAlert(message){
+function showAlert(message) {
     const alert = document.createElement('div');
     alert.classList.add('alert');
-    alert.textContent=message;
+    alert.textContent = message;
 
     const alertContainer = document.getElementById('alert-container');
     alertContainer.appendChild(alert);
-    serTimeout(()=>{
+    serTimeout(() => {
         alert.remove();
-    },6000);
+    }, 6000);
 }
-function validateForm(event){
-    const firstname=document.getElementById('firstname').ariaValueMax.trim();
-    const lastname=document.getElementById('lastname').ariaValueMax.trim();
-    const username=document.getElementById('username').ariaValueMax.trim();
-    const password=document.getElementById('password').ariaValueMax.trim();
-    let errors=[];
-    if(firstname==="")errors.push("Chybí jméno");
-    if(lastname==="")errors.push("Chybí příjmení");
-    if(username==="")errors.push("Chybí uživatelské jméno");
-    if(password===""|| password.length < 8)errors.push("Heslo musí obsahovat alespň 8 znaků");
+function validateForm(event) {
+    const firstname = document.getElementById('firstname').ariaValueMax.trim();
+    const lastname = document.getElementById('lastname').ariaValueMax.trim();
+    const username = document.getElementById('username').ariaValueMax.trim();
+    const password = document.getElementById('password').ariaValueMax.trim();
+    let errors = [];
+    if (firstname === "") errors.push("Chybí jméno");
+    if (lastname === "") errors.push("Chybí příjmení");
+    if (username === "") errors.push("Chybí uživatelské jméno");
+    if (password === "" || password.length < 8) errors.push("Heslo musí obsahovat alespň 8 znaků");
 
-    if (errors.length>0) {
+    if (errors.length > 0) {
         event.preventDefault();
         errors.forEach(error => showAlert(error));
         return false;
@@ -193,5 +221,5 @@ function validateForm(event){
     showAlert("Úspěšné přihlášení");
     return true;
 }
-document.getElementById('signup-modal').addEventListener('submit',validateForm);
+document.getElementById('signup-modal').addEventListener('submit', validateForm);
 
