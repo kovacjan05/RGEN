@@ -71,17 +71,17 @@
 
 // //header('Content-Type: application/json; charset=utf-8');
 // //echo json_encode(['text' => $generatedText]);
-// exit;<?php
+// exit;
+?>
 
 
 
-
+<?php
 session_start();
 require_once '../conn_db/connected_database.php';
 
 $generatedText = "";
 
-// Získání vstupních dat z formuláře
 $pocetOdstavcu = $_POST['odstavce'] ?? null;
 $celkovyPocetSlov = $_POST['slovaOdstavec'] ?? null;
 
@@ -114,12 +114,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pocetOdstavcu >= 1 && $celkovyPoce
             $index = 1;
             break;
         default:
-            $_SESSION['error_message'] = "Neplatná volba jazyka!";
+            $_SESSION['generated_text'] = "Neplatná volba jazyka!";
             header("Location: ../index.php");
             exit;
     }
 
-    // Vyhledání textu na základě jazyka
     $sql = "SELECT obsah FROM slovniky.text WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $index);
@@ -128,26 +127,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pocetOdstavcu >= 1 && $celkovyPoce
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        $text = $row['obsah'];
+        $fullText = $row['obsah'];
 
-        // Generování požadovaného textu
-        $words = explode(" ", $text);
+        // Rozdělení textu na slova
+        $words = explode(" ", $fullText);
         $totalWords = count($words);
-        $generatedText = "";
 
-        // Rozdělení textu na požadovaný počet odstavců a slov
-        $wordCounter = 0;
+        // Vytvoření odstavců
+        $paragraphs = [];
+        $wordsPerParagraph = max(1, floor($totalWords / $pocetOdstavcu)); // Počet slov na odstavec
+
         for ($i = 0; $i < $pocetOdstavcu; $i++) {
-            $paragraph = "";
-            for ($j = 0; $j < $celkovyPocetSlov; $j++) {
-                if ($wordCounter >= $totalWords) {
-                    $wordCounter = 0; // Reset při nedostatku slov
-                }
-                $paragraph .= $words[$wordCounter++] . " ";
-            }
-            $generatedText .= trim($paragraph) . "\n\n"; // Přidání prázdného řádku mezi odstavce
-            //echo $generatedText;
+
+
+            $startIndex = $i * $wordsPerParagraph;
+            $paragraphWords = array_slice($words, $startIndex, $wordsPerParagraph);
+
+
+            if (empty($paragraphWords)) break;
+            $paragraphs[] = implode(" ", $paragraphWords);
         }
+
+        $generatedText = implode("\n\n", $paragraphs); // Odstavce oddělené prázdným řádkem
     } else {
         $generatedText = "Žádný text nebyl nalezen pro zvolený jazyk.";
     }
@@ -155,11 +156,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pocetOdstavcu >= 1 && $celkovyPoce
     $_SESSION['generated_text'] = $generatedText;
     $stmt->close();
 } else {
-    $_SESSION['error_message'] = "Zadejte platné hodnoty pro počet odstavců a počet slov.";
+    $_SESSION['generated_text'] = "Chybné zadání parametrů!";
 }
 
 $conn->close();
-
-// Přesměrování zpět na hlavní stránku
 header("Location: ../index.php");
 exit;
