@@ -1,35 +1,3 @@
-document.querySelector('form').addEventListener('submit', function (event) {
-    event.preventDefault(); // Zabránění odeslání formuláře
-
-    const formData = new FormData(this);
-
-    fetch('gen_text/generate_text.php', {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => {
-            console.log('Odpověď serveru:', response); // Log odpovědi
-            if (!response.ok) {
-                throw new Error(`HTTP chyba: ${response.status}`);
-            }
-            return response.json(); // Pokus o přečtení JSON
-        })
-        .then(data => {
-            console.log('Data ze serveru:', data); // Log JSON dat
-            if (!data.text) {
-                throw new Error('Odpověď serveru neobsahuje text.');
-            }
-            const textContainer = document.querySelector('.scrollable-block p');
-            if (!textContainer) {
-                throw new Error('Element .scrollable-block p neexistuje.');
-            }
-            textContainer.innerHTML = data.text; // Zobrazení textu
-        })
-        .catch(error => {
-            console.error('Chyba při generování textu:', error);
-            alert('Došlo k chybě při generování textu. Zkontrolujte zadání a zkuste to znovu.');
-        });
-});
 
 
 

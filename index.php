@@ -4,6 +4,12 @@ session_start();
 // Simulace přihlášení - toto nahradíte logikou podle vaší aplikace
 $isLoggedIn = isset($_SESSION['username']);
 $username = $isLoggedIn ? $_SESSION['username'] : null;
+
+
+
+
+$text = $_SESSION['generated_text']
+
 ?>
 
 <!DOCTYPE html>
@@ -62,10 +68,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     </header>
 
 
-    <!-- Sidebar -->
+    <!-- leva -->
     <aside class="leva-strana">
         <div class="vyber">
-            <form action="gen_text/generate_text.php" method="post">
+            <form id="textForm" action="gen_text/generate_text.php" method="post">
                 <label for="vyber">Vyber si jazyk</label>
                 <select id="vyber" name="vyber">
                     <option value="čeština">Čeština</option>
@@ -76,14 +82,16 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     <option value="slovenština">Slovenština</option>
                     <option value="čapkova čeština">Čapkova čeština</option>
                 </select>
-                <br><br>
+                <br><br><br>
                 <div class="posunuti">
                     <label for="odstavce">Počet odstavců:</label>
                     <input type="text" name="odstavce" id="odstavce">
-                    <br><br>
+                    <br><br><br>
                     <label for="slovaOdstavec">Počet slov v jednom odstavci:</label>
                     <input type="text" name="slovaOdstavec" id="slovaOdstavec">
-                    <br><br><br><br>
+                    <br><br><br>
+                    <label id="error-message-gen" style="display: none; color:red; text-align: center;">* Vyplňte prosím všechny povinné údaje</label>
+                    <br>
                 </div>
                 <button class="generate-button" type="submit">Generovat text</button>
             </form>
@@ -100,28 +108,22 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             <li>Naposledy uložený text</li>
         </div>
 
-        <button onclick="window.location.href='logout/logout.php'">Odhlásit se</button>
+        <button id="logoutButton">Odhlásit se</button>
     </div>
 
-
-
     <main class="main-content">
-        <!-- Panel s tlačítky pro úpravy textu -->
         <div class="button-panel">
             <button id="increase-font" title="Zvětšit písmo">B</button>
             <button id="number-list" title="Číslovaný obsah">1.2.</button>
             <button id="add-dash" title="Přidat pomlčku">-</button>
         </div>
 
-        <!-- Scrollable block -->
         <div class="scrollable-block" contenteditable="true">
-            <p>
-                Zde se zobrazí vygenerovaný text.
+            <p id="generated-text">
+                <?php $text;
+                ?>
             </p>
         </div>
-        </div>
-
-
     </main>
 
 
@@ -151,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         <div class="modal-container">
             <button class="close-button" id="close-signup-modal">&times;</button>
             <h2>Registrace</h2>
-            <form id="registr-form">
+            <form id="registr-form" method="post">
                 <label for="firstname-registr">Firstname:</label>
                 <input type="text" id="firstname-registr" name="firstname">
                 <br>
