@@ -15,6 +15,7 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RGEN</title>
     <link rel="stylesheet" href="css/css.css">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
 </head>
 <?php
 $errors = [];
@@ -120,17 +121,16 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 </svg></button>
         </div>
 
-        <div class="scrollable-block" contenteditable="true">
-            <p id="generated-text">
-                <?php
+        <div id="editor">
+            <p><?php
                 if (isset($_SESSION['generated_text'])) {
                     echo htmlspecialchars($_SESSION['generated_text']);
                     unset($_SESSION['generated_text']);
                 } else {
                     echo "Zde se zobrazí vygenerovaný text.";
                 }
-                ?>
-            </p>
+                ?></p>
+            <p><br /></p>
         </div>
 
     </main>
@@ -186,6 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     <script src="js.js"></script>
     <script src="script_errors.js"></script>
     <script src="pokusy.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <!--<script>
         const loginButton = document.getElementById('login-button');
         const loginModal = document.getElementById('login-modal');
@@ -211,6 +212,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             contentToBlur.forEach(element => element.classList.add('blurred'));
         <?php endif; ?>
     </script>-->
+    <script>
+        const quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+    </script>
 </body>
 
 </html>

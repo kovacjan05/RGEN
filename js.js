@@ -1,28 +1,38 @@
 
 
-
-
-
-
-
 const selectElement = document.getElementById("vyber");
 const posunutiDiv = document.querySelector(".posunuti");
 
-// Přidáme třídu při zaměření na select
+// Funkce pro přidání třídy při zaměření na select
 selectElement.addEventListener("focus", () => {
     posunutiDiv.classList.add("posunuto-dolu");
 });
 
-// Odstraníme třídu při opuštění selectu
-selectElement.addEventListener("blur", () => {
-    posunutiDiv.classList.remove("posunuto-dolu");
-});
-
-// Odstraníme třídu při změně výběru a zároveň odstraníme focus
+// Funkce pro odstranění třídy při změně výběru
 selectElement.addEventListener("change", () => {
     posunutiDiv.classList.remove("posunuto-dolu");
-    selectElement.blur(); // Programově odstraníme focus, aby už nešlo znovu rozkliknout
+    selectElement.blur(); // Programově odstraníme focus
 });
+
+// Funkce pro detekci kliknutí mimo select
+document.addEventListener("click", (event) => {
+    // Zkontrolujeme, jestli kliknutí bylo mimo select
+    if (!selectElement.contains(event.target)) {
+        posunutiDiv.classList.remove("posunuto-dolu");
+    }
+});
+
+// Zamezení přidávání/odstraňování třídy na základě samotného selectu
+selectElement.addEventListener("blur", (event) => {
+    // Zde nic neděláme, protože chceme zachovat třídu, dokud uživatel neklikne mimo
+    event.stopPropagation();
+});
+
+
+
+
+
+
 
 // Získání tlačítka pro změnu stylu textu
 const increaseFontButton = document.getElementById('increase-font');
@@ -86,11 +96,8 @@ addDashButton.addEventListener('click', () => {
         // Vytvoříme pomlčku a mezeru, které budou na novém řádku
         const dashText = document.createTextNode(' — '); // Pomlčka a mezera
 
-        // Vytvoříme <br> pro nový řádek
-        const lineBreak = document.createElement('br');
 
-        // Přidáme <br> pro nový řádek
-        paragraph.appendChild(lineBreak);
+
         // Přidáme pomlčku do nového řádku
         paragraph.appendChild(dashText);
 
@@ -124,6 +131,7 @@ const contentToBlur = [document.querySelector('main'), document.querySelector('.
 loginButton.addEventListener('click', () => {
     loginModal.style.display = 'flex';
     contentToBlur.forEach(element => element.classList.add('blurred'));
+    console.log("past");
 });
 
 //Close login modal

@@ -56,7 +56,8 @@
     background-color: #f3f3f3;
     border-right: 2px solid #ddd;
     float: left;
-    height: 100vh;
+    height: 90vh;
+
 }
 
 .generate-button {
