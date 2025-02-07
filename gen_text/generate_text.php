@@ -2,15 +2,11 @@
 session_start();
 require_once '../conn_db/connected_database.php';
 
-$generatedText = "";
+$pocetOdstavcu = isset($_POST['odstavce']) ? (int)$_POST['odstavce'] : 0;
+$slovaOdstavec = isset($_POST['slovaOdstavec']) ? (int)$_POST['slovaOdstavec'] : 0;
 
-$pocetOdstavcu = $_POST['odstavce'] ?? null;
-$celkovyPocetSlov = $_POST['slovaOdstavec'] ?? null;
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pocetOdstavcu >= 1 && $celkovyPocetSlov >= 1) {
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pocetOdstavcu > 0 && $slovaOdstavec > 0) {
     $vybranyJazyk = $_POST['vyber'] ?? null;
-
     $index = null;
 
     switch ($vybranyJazyk) {
@@ -36,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pocetOdstavcu >= 1 && $celkovyPoce
             $index = 1;
             break;
         default:
-            $_SESSION['generated_text'] = "Neplatná volba jazyka!";
+            $_SESSION['generated_text'] = ["Neplatná volba jazyka!"];
             header("Location: ../index.php");
             exit;
     }
@@ -51,33 +47,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pocetOdstavcu >= 1 && $celkovyPoce
         $row = $result->fetch_assoc();
         $fullText = $row['obsah'];
 
-
         $words = explode(" ", $fullText);
         $totalWords = count($words);
-
-        $paragraphs = [];
-        $wordsPerParagraph = max(1, floor($totalWords / $pocetOdstavcu));
+        $generatedParagraphs = [];
+        $wordIndex = 0;
 
         for ($i = 0; $i < $pocetOdstavcu; $i++) {
+            $paragraphWords = [];
 
+            for ($j = 0; $j < $slovaOdstavec; $j++) {
+                if ($wordIndex >= $totalWords) {
+                    $wordIndex = 0;
+                }
+                $paragraphWords[] = $words[$wordIndex];
+                $wordIndex++;
+            }
 
-            $startIndex = $i * $wordsPerParagraph;
-            $paragraphWords = array_slice($words, $startIndex, $wordsPerParagraph);
-
-
-            if (empty($paragraphWords)) break;
-            $paragraphs[] = implode(" ", $paragraphWords);
+            $generatedParagraphs[] = implode(" ", $paragraphWords);
         }
 
-        $generatedText = implode("\n\n\n", $paragraphs);
+        $_SESSION['generated_text'] = $generatedParagraphs;
     } else {
-        $generatedText = "Žádný text nebyl nalezen pro zvolený jazyk.";
+        $_SESSION['generated_text'] = ["Žádný text nebyl nalezen pro zvolený jazyk."];
     }
 
-    $_SESSION['generated_text'] = $generatedText;
     $stmt->close();
 } else {
-    $_SESSION['generated_text'] = "Chybné zadání parametrů!";
+    $_SESSION['generated_text'] = ["Chybné zadání parametrů!"];
 }
 
 $conn->close();
