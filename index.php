@@ -147,10 +147,15 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
     </div>
 
     <main class="main-content">
-        <div class="button-panel">
-            <button id="increase-font" title="Zvětšit písmo">B</button>
-            <button id="number-list" title="Číslovaný obsah">1.2.</button>
-            <button id="add-dash" title="Přidat pomlčku">-</button>
+        <div id="user-status" data-logged-in="<?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>"></div>
+        <div class="button-panel" id="saveForm" style="display: none;">
+            <form action="textUser/saveText.php" method="post">
+                <label for="text">Zadejte text: </label>
+                <input type="text" name="name">
+                <label class="error" id="error-message-savetext" style="display: none;">* zadejte nazev textu nebo si text vygenerujte</label>
+                <button type="submit">Uložit</button>
+            </form>
+
         </div>
 
         <div id="editor">
@@ -164,7 +169,8 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
 
                         <?php
                         }
-                        unset($_SESSION['generated_text']);
+
+                        $_SESSION["saveText"] = $_SESSION['generated_text'];
                     } else {
                         ?>
                         <p>Zde se zobrazí vygenerovaný text.</p>

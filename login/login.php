@@ -4,7 +4,7 @@ require_once '../conn_db/connected_database.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
-
+    $_SESSION['username'] = $username;
     if ($username === '' || $password === '') {
         http_response_code(400); // Chybná data
         exit;

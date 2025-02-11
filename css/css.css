@@ -251,6 +251,7 @@ form select:focus {
 /* Panel s tlačítky */
 .button-panel {
     display: flex;
+    flex-direction: row;
     gap: 8px;
     margin-bottom: 10px;
 
@@ -354,4 +355,11 @@ input[type="password"] {
 
 .close-button:hover {
     background-color: rgb(146, 146, 146);
+}
+
+
+#saveForm input[type="text"] {
+    width: 30vh;
+    border: 2px solid rgb(146, 146, 146);
+
 }

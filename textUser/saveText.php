@@ -2,26 +2,54 @@
 // Spuštění session
 session_start();
 
-// Připojení k databázi (nahraďte podle vašeho nastavení)
-require_once 'db_connection.php'; // Soubor pro připojení k DB
+// Připojení k databázi
+require_once '../conn_db/connected_database.php';
 
-// Získání dat ze session
-$user_id = $_SESSION['user_id'];
-$text_content = $_SESSION['generateText'];
+// Ověření, zda je uživatel přihlášen
 
-// Získání názvu textu z POST dat
-$data = json_decode(file_get_contents("php://input"), true);
+$username = $_SESSION['username'];
 
-if (isset($data['name']) && !empty($data['name'])) {
-    $name = $data['name'];
+// Získání ID uživatele
+$stmt = $conn->prepare("SELECT id FROM slovniky.users WHERE username = ?");
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$result = $stmt->get_result();
 
-    // SQL dotaz pro vložení dat
-    $stmt = $pdo->prepare("INSERT INTO user_text (user_id, name, text_content) VALUES (?, ?, ?)");
-    if ($stmt->execute([$user_id, $name, $text_content])) {
-        echo json_encode(["success" => true]);
-    } else {
-        echo json_encode(["success" => false, "error" => "Chyba při vkládání do databáze."]);
-    }
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $userId = $row['id'];
 } else {
-    echo json_encode(["success" => false, "error" => "Název textu je prázdný."]);
+    http_response_code(401);
+    exit("Uživatel nenalezen.");
+}
+
+echo "ID uživatele: $userId <br>";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isset($_POST['name']) || empty($_POST['name'])) {
+        //header("Location: ../index.php");
+        exit("pepi nadpis");
+    }
+
+    if (!isset($_SESSION['saveText']) || empty($_SESSION['saveText'])) {
+        //header("Location: ../index.php");
+        print_r($_SESSION['saveText']);
+        exit("Obsah článku nesmí být prázdný.");
+    }
+
+
+
+    $name = $_POST['name'];
+    $text_content = json_encode($_SESSION['saveText']);
+
+    // Uložení do databáze
+    $stmt = $conn->prepare("INSERT INTO slovniky.user_texts (user_id, name, text_content) VALUES (?, ?, ?)");
+    $stmt->bind_param("iss", $userId, $name, $text_content);
+
+    if ($stmt->execute()) {
+        //header("Location: ../index.php");
+        exit("nende to");
+    } else {
+        exit("Chyba při ukládání do databáze: " . $stmt->error);
+    }
 }

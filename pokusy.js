@@ -1,31 +1,27 @@
+document.addEventListener("DOMContentLoaded", function () {
+    // Získání informace o přihlášení z HTML (data-attribut)
+    var userStatusDiv = document.getElementById("user-status");
+    var isLoggedIn = userStatusDiv.getAttribute("data-logged-in") === "true";
 
-function saveGeneratedText() {
-    const textName = prompt("Zadejte název textu:");
-
-    if (!textName) {
-        alert("Název textu není vyplněn.");
-        return;
+    // Pokud je uživatel přihlášen, zobrazíme formulář
+    if (isLoggedIn) {
+        document.getElementById("saveForm").style.display = "block";
     }
 
-    // Odeslání AJAX požadavku na PHP skript
-    fetch("save_text.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            name: textName,
-        }),
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.success) {
-                alert("Text byl úspěšně uložen.");
-            } else {
-                alert("Došlo k chybě při ukládání: " + (data.error || "Neznámá chyba."));
-            }
-        })
-        .catch((error) => {
-            console.error("Chyba:", error);
-        });
-}
+    // Validace formuláře
+    document.querySelector("#saveForm form").addEventListener("submit", function (event) {
+        var textNameInput = document.querySelector("#saveForm input[name='name']");
+        var errorMessage = document.getElementById("error-message-savetext");
+
+        if (textNameInput.value.trim() === "") {
+            event.preventDefault(); // Zabrání odeslání formuláře
+            errorMessage.style.display = "block";
+        } else {
+            errorMessage.style.display = "none";
+
+            setTimeout(function () {
+                alert("Text úspěšně uložen.");
+            }, 100);
+        }
+    });
+});
