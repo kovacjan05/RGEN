@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pocetOdstavcu > 0 && $slovaOdstave
     } else {
         $_SESSION['generated_text'] = ["Žádný text nebyl nalezen pro zvolený jazyk."];
     }
-
+    $_SESSION["saveText"] = $_SESSION['generated_text'];
     $stmt->close();
 } else {
     $_SESSION['generated_text'] = ["Chybné zadání parametrů!"];

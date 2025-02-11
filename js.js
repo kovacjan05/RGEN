@@ -125,3 +125,8 @@ function validateForm(event) {
 }
 document.getElementById('signup-modal').addEventListener('submit', validateForm);
 
+
+
+
+///////////////////////////    save text    ////////////////
+

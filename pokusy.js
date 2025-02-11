@@ -1,3 +1,5 @@
+
+
 document.addEventListener("DOMContentLoaded", function () {
     // Získání informace o přihlášení z HTML (data-attribut)
     var userStatusDiv = document.getElementById("user-status");
