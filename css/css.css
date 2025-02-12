@@ -104,7 +104,6 @@
     }
 }
 
-
 .logoutBox {
     position: absolute;
     background-color: #333;
@@ -113,9 +112,7 @@
     margin-top: 10px;
     width: 320px;
     min-height: 172px;
-    /* Logout box nesmí být menší */
     max-height: 80vh;
-    /* Omezíme maximální výšku */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     z-index: 10000;
@@ -125,37 +122,15 @@
 
 .logoutBoxText {
     flex-grow: 1;
-    /* Automaticky se roztáhne podle obsahu */
     text-align: center;
     color: rgb(208, 208, 208);
     overflow-y: auto;
-    /* Pokud je hodně textů, zobrazí se scrollbar */
     padding: 20px;
     max-height: calc(80vh - 60px);
-    /* Omezíme max. výšku (80vh minus tlačítko) */
 }
 
 .logoutBoxText .nadpis {
     font-size: 3.5vh;
-}
-
-
-
-
-
-.safe-text li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 5px 0;
-}
-
-.safe-text form {
-    display: flex;
-    gap: 5px;
-    /* Mezera mezi tlačítky */
-    align-items: center;
 }
 
 .logoutBox #logoutButton {
@@ -164,13 +139,15 @@
     border: none;
     width: 100%;
     height: 50px;
-    /* Pevná výška tlačítka */
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
     border-radius: 0 0 8px 8px;
+}
 
-
+.safe-text-buttons {
+    display: flex;
+    gap: 5px;
 }
 
 .safe-text button {
@@ -196,6 +173,35 @@
     background-color: #d9d9d9;
     transform: scale(1.1);
 }
+
+.safe-text li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    padding: 5px 0;
+    border-bottom: #c700b3 solid 1px;
+    border-radius: 5px;
+}
+
+.safe-text form {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.safe-text form:first-of-type {
+    margin-right: 10px;
+}
+
+
+
+
+
+
+
+
+
 
 
 .vyber label {

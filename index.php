@@ -91,30 +91,39 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
                         <?php foreach ($_SESSION['findTexts'] as $textName): ?>
                             <li>
                                 <?= htmlspecialchars($textName) ?>
-                                <form method="post" action="findText.php" style="display:inline;">
-                                    <input type="hidden" name="name" value="<?= htmlspecialchars($textName) ?>">
-                                    <button type="submit" name="loadText">
-                                        <svg fill="#000000" width="24px" height="24px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M45.274,29.772c-1.094,-8.15 -8.075,-14.435 -16.525,-14.435c-9.203,0 -16.674,7.471 -16.674,16.674
-                                    c0,9.203 7.471,16.675 16.674,16.675c4.423,0 8.664,-1.757 11.791,-4.884l2.862,2.863c-3.886,3.886 -9.157,6.069 -14.653,6.069
-                                    c-11.437,0 -20.723,-9.285 -20.723,-20.723c0,-11.437 9.286,-20.723 20.723,-20.723c10.623,0 19.379,7.994 20.582,18.294l3.551,-3.551
-                                    l3.118,3.117l-8.792,8.792l-8.796,-8.796l3.118,-3.117l3.744,3.745Z" />
-                                        </svg>
-                                    </button>
-                                    <button type="submit" name="delete">
-                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px">
-                                            <path d="M6.99486 7.00636C6.60433 7.39689 6.60433 8.03005 6.99486 8.42058L10.58 12.0057L6.99486 15.5909
-                                    C6.60433 15.9814 6.60433 16.6146 6.99486 17.0051C7.38538 17.3956 8.01855 17.3956 8.40907 17.0051L11.9942 13.4199
-                                    L15.5794 17.0051C15.9699 17.3956 16.6031 17.3956 16.9936 17.0051C17.3841 16.6146 17.3841 15.9814 16.9936 15.5909
-                                    L13.4084 12.0057L16.9936 8.42059C17.3841 8.03007 17.3841 7.3969 16.9936 7.00638C16.603 6.61585 15.9699 6.61585
-                                    15.5794 7.00638L11.9942 10.5915L8.40907 7.00636C8.01855 6.61584 7.38538 6.61584 6.99486 7.00636Z" fill="#000000" />
-                                        </svg>
-                                    </button>
-                                </form>
+                                <div class="safe-text-buttons">
+                                    <!-- Formulář pro načtení textu -->
+                                    <form method="post" action="textUser/loadText.php" style="display:inline;">
+                                        <input type="hidden" name="name" value="<?= htmlspecialchars($textName) ?>">
+                                        <button type="submit" name="loadText" id="loadText">
+                                            <svg fill="#000000" width="24px" height="24px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M45.274,29.772c-1.094,-8.15 -8.075,-14.435 -16.525,-14.435c-9.203,0 -16.674,7.471 -16.674,16.674
+                            c0,9.203 7.471,16.675 16.674,16.675c4.423,0 8.664,-1.757 11.791,-4.884l2.862,2.863c-3.886,3.886 -9.157,6.069 -14.653,6.069
+                            c-11.437,0 -20.723,-9.285 -20.723,-20.723c0,-11.437 9.286,-20.723 20.723,-20.723c10.623,0 19.379,7.994 20.582,18.294l3.551,-3.551
+                            l3.118,3.117l-8.792,8.792l-8.796,-8.796l3.118,-3.117l3.744,3.745Z" />
+                                            </svg>
+                                        </button>
+                                    </form>
+
+                                    <!-- Formulář pro smazání textu -->
+                                    <form method="post" action="textUser/deleteText_GenerateText.php" style="display:inline;">
+                                        <input type="hidden" name="name" value="<?= htmlspecialchars($textName) ?>">
+                                        <button type="submit" name="delete">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px">
+                                                <path d="M6.99486 7.00636C6.60433 7.39689 6.60433 8.03005 6.99486 8.42058L10.58 12.0057L6.99486 15.5909
+                            C6.60433 15.9814 6.60433 16.6146 6.99486 17.0051C7.38538 17.3956 8.01855 17.3956 8.40907 17.0051L11.9942 13.4199
+                            L15.5794 17.0051C15.9699 17.3956 16.6031 17.3956 16.9936 17.0051C17.3841 16.6146 17.3841 15.9814 16.9936 15.5909
+                            L13.4084 12.0057L16.9936 8.42059C17.3841 8.03007 17.3841 7.3969 16.9936 7.00638C16.603 6.61585 15.9699 6.61585
+                            15.5794 7.00638L11.9942 10.5915L8.40907 7.00636C8.01855 6.61584 7.38538 6.61584 6.99486 7.00636Z" fill="#000000" />
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
                             </li>
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>
+
             </div>
 
 
