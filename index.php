@@ -66,7 +66,7 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
         </div>
     </aside>
 
-    <div class="logoutBox">
+    <div class="logoutBox" style="display: none;">
         <div class="logoutBoxText">
             <div class="nadpis">
                 <?php echo htmlspecialchars($username ?? ''); ?>
@@ -126,6 +126,10 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
     </div>
 
     <main class="main-content">
+
+
+
+
         <div id="user-status" data-logged-in="<?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>"></div>
         <div class="button-panel" id="saveForm" style="display: none;">
             <form action="textUser/saveText.php" method="post">
@@ -200,6 +204,7 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
                 <br>
                 <span class="error" id="error-message-registr-empty">* Všechna pole musí být vyplněna.</span>
                 <span class="error" id="error-message-registr-password">* Heslo musí mít alespoň 8 znaků.</span>
+                <span class="error" id="error-message-registr-password">* Uživatelské jméno už existuje.</span>
                 <br>
                 <button type="submit">Registrovat se</button>
             </form>

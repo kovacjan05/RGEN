@@ -41,5 +41,5 @@ print_r($_SESSION['findTexts']);
 $stmt->close();
 $conn->close();
 
-//header("Location: ../index.php"); // Přesměrování zpět na hlavní stránku
+header("Location: ../index.php"); // Přesměrování zpět na hlavní stránku
 exit();

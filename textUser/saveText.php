@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("iss", $userId, $name, $text_content);
 
     if ($stmt->execute()) {
-        //header("Location: ../index.php");
+        header("Location: findText.php");
         exit("nende to");
     } else {
         exit("Chyba při ukládání do databáze: " . $stmt->error);

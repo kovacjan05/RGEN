@@ -106,14 +106,13 @@
 
 
 .logoutBox {
-    display: none;
     position: absolute;
     background-color: #333;
     right: 0;
     margin-right: 10px;
     margin-top: 10px;
     width: 320px;
-    min-height: 250px;
+    min-height: 172px;
     /* Logout box nesmí být menší */
     max-height: 80vh;
     /* Omezíme maximální výšku */
@@ -170,6 +169,7 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     border-radius: 0 0 8px 8px;
+
 
 }
 
