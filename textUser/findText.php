@@ -40,6 +40,6 @@ print_r("///////////////////////////////////////////");
 print_r($_SESSION['findTexts']);
 $stmt->close();
 $conn->close();
-
+header("Refresh:3");
 header("Location: ../index.php"); // Přesměrování zpět na hlavní stránku
 exit();
