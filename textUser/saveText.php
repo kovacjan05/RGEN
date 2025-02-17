@@ -31,16 +31,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit("pepi nadpis");
     }
 
-    if (!isset($_SESSION['saveText']) || empty($_SESSION['saveText'])) {
+    if (!isset($_SESSION['editor_content2']) || empty($_SESSION['editor_content2'])) {
         //header("Location: ../index.php");
-        print_r($_SESSION['saveText']);
+        print_r($_SESSION['editor_content2']);
         exit("Obsah článku nesmí být prázdný.");
     }
 
 
 
     $name = $_POST['name'];
-    $text_content = json_encode($_SESSION['saveText']);
+    $text_content = json_encode($_SESSION['editor_content2']);
 
     // Uložení do databáze
     $stmt = $conn->prepare("INSERT INTO slovniky.user_texts (user_id, name, text_content) VALUES (?, ?, ?)");

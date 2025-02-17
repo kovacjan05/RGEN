@@ -145,12 +145,13 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
                 <label for="text">Zadejte text: </label>
                 <input type="text" name="name">
                 <label class="error" id="error-message-savetext" style="display: none;">* zadejte nazev textu nebo si text vygenerujte</label>
-                <button type="submit">Uložit</button>
+                <button id="saveButton" type="submit">Uložit</button>
             </form>
+            <script src="JavaScript/text_user_script.js"></script>
 
         </div>
 
-        <div id="editor">
+        <div id="editor" data-content="<?php echo htmlspecialchars($editorContent, ENT_QUOTES, 'UTF-8'); ?>">
             <div>
                 <div>
                     <?php
