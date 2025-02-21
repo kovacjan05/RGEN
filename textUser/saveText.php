@@ -1,11 +1,10 @@
 <?php
-// Spuštění session
 session_start();
-
-// Připojení k databázi
 require_once '../conn_db/connected_database.php';
 
-// Ověření, zda je uživatel přihlášen
+if (!isset($_SESSION['username'])) {
+    exit("error: Uživatel není přihlášen.");
+}
 
 $username = $_SESSION['username'];
 
@@ -15,41 +14,45 @@ $stmt->bind_param("s", $username);
 $stmt->execute();
 $result = $stmt->get_result();
 
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
+if ($row = $result->fetch_assoc()) {
     $userId = $row['id'];
 } else {
-    http_response_code(401);
-    exit("Uživatel nenalezen.");
+    exit("error: Uživatel nenalezen.");
 }
 
-echo "ID uživatele: $userId <br>";
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!isset($_POST['name']) || empty($_POST['name'])) {
-        //header("Location: ../index.php");
-        exit("pepi nadpis");
+    if (empty($_POST['Textname'])) {
+        exit("error: Název textu je povinný.");
     }
 
-    if (!isset($_SESSION['editor_content2']) || empty($_SESSION['editor_content2'])) {
-        //header("Location: ../index.php");
-        print_r($_SESSION['editor_content2']);
-        exit("Obsah článku nesmí být prázdný.");
+    if (empty($_SESSION['editor_content'])) {
+        exit("error: Obsah článku nesmí být prázdný.");
     }
 
+    $name = trim($_POST['Textname']);
+    $text_content = json_encode($_SESSION['editor_content']);
 
+    // Ověření, zda už existuje text se stejným názvem
+    $stmt = $conn->prepare("SELECT id FROM slovniky.user_texts WHERE user_id = ? AND name = ?");
+    $stmt->bind_param("is", $userId, $name);
+    $stmt->execute();
 
-    $name = $_POST['name'];
-    $text_content = json_encode($_SESSION['editor_content2']);
+    if ($stmt->get_result()->num_rows > 0) {
+        header("Location: ../textUser/findText.php");
+        exit("error: Text s tímto názvem už máte uložený.");
+    }
 
     // Uložení do databáze
     $stmt = $conn->prepare("INSERT INTO slovniky.user_texts (user_id, name, text_content) VALUES (?, ?, ?)");
     $stmt->bind_param("iss", $userId, $name, $text_content);
 
     if ($stmt->execute()) {
-        header("Location: findText.php");
-        exit("nende to");
+        $_SESSION['text-from-database'] = null;
+        $_SESSION['generated_text'] = null;
+        exit("success");
     } else {
-        exit("Chyba při ukládání do databáze: " . $stmt->error);
+        exit("error: Chyba při ukládání do databáze.");
     }
 }
+
+$conn->close();

@@ -19,6 +19,7 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $userId = $row['id'];
+    $_SESSION['userId'] = $userId;
 } else {
     http_response_code(401);
     exit("Uživatel nenalezen.");

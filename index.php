@@ -4,7 +4,7 @@ session_start();
 $isLoggedIn = isset($_SESSION['username']);
 $username = $isLoggedIn ? $_SESSION['username'] : null;
 
-
+$editorContent = isset($_SESSION['text-from-database']) ? $_SESSION['text-from-database'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -93,7 +93,7 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
                                 <?= htmlspecialchars($textName) ?>
                                 <div class="safe-text-buttons">
                                     <!-- Formulář pro načtení textu -->
-                                    <form method="post" action="textUser/loadText.php" style="display:inline;">
+                                    <form method="post" action="gen_text/generate_text.php" style="display:inline;">
                                         <input type="hidden" name="name" value="<?= htmlspecialchars($textName) ?>">
                                         <button type="submit" name="loadText" id="loadText">
                                             <svg fill="#000000" width="24px" height="24px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
@@ -143,37 +143,40 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
         <div class="button-panel" id="saveForm" style="display: none;">
             <form action="textUser/saveText.php" method="post">
                 <label for="text">Zadejte text: </label>
-                <input type="text" name="name">
+                <input type="text" name="Textname">
                 <label class="error" id="error-message-savetext" style="display: none;">* zadejte nazev textu nebo si text vygenerujte</label>
-                <button id="saveButton" type="submit">Uložit</button>
+                <label class="error" id="error-message-savetext-duplicate" style="display: none;">* Název textu už je jednou uložen</label>
+                <button id="saveButton" type="submit" name="Textname">Uložit</button>
+                <br>
             </form>
             <script src="JavaScript/text_user_script.js"></script>
-
+            <form action="textUser/resetSession.php" method="post">
+                <button type="submit">reset</button>
+            </form>
         </div>
 
         <div id="editor" data-content="<?php echo htmlspecialchars($editorContent, ENT_QUOTES, 'UTF-8'); ?>">
             <div>
                 <div>
                     <?php
-                    if (isset($_SESSION['generated_text']) && is_array($_SESSION['generated_text'])) {
+                    // Pokud je v session text z databáze, vypíšeme ho
+                    if (!empty($_SESSION['text-from-database'])) {
+                        echo "<p>" . nl2br(htmlspecialchars($_SESSION['text-from-database'])) . "</p>";
+                    }
+                    // Pokud není text z databáze, vypíšeme vygenerovaný text (foreach)
+                    elseif (!empty($_SESSION['generated_text']) && is_array($_SESSION['generated_text'])) {
                         foreach ($_SESSION['generated_text'] as $paragraph) {
-                    ?>
-                            <p><?php echo  ucfirst(htmlspecialchars($paragraph) . "."); ?></p>
-
-                        <?php
+                            echo "<p>" . ucfirst($paragraph) . "." . "</p>";
                         }
                     } else {
-                        ?>
-                        <p>Zde se zobrazí vygenerovaný text.</p>
-                    <?php
+                        echo "<p>Zde se zobrazí text.</p>";
                     }
                     ?>
                 </div>
-
             </div>
-
             <div><br /></div>
         </div>
+
     </main>
 
     <div class="modal-overlay" id="login-modal">
@@ -226,10 +229,9 @@ $username = $isLoggedIn ? $_SESSION['username'] : null;
     <script src="pokusy.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script>
-        const quill = new Quill('#editor', {
-            theme: 'snow'
-        });
+
     </script>
+
 </body>
 
 </html>

@@ -153,11 +153,6 @@ document.getElementById("textForm").addEventListener("submit", function (e) {
 
         } else {
             input.style.border = "";
-            // if (typeof prvek === 'number' && prvek > 0) {
-            //     console.log('Prvek je číslo a je větší než nula.');
-            // } else {
-            //     console.log('Prvek není číslo nebo není větší než nula.');
-            // }
         }
     });
 
