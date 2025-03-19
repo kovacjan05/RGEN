@@ -150,23 +150,26 @@ $editorContent = isset($_SESSION['text-from-database']) ? $_SESSION['text-from-d
                 <br>
             </form>
             <script src="JavaScript/text_user_script.js"></script>
-            <form action="textUser/resetSession.php" method="post">
-                <button type="submit">reset</button>
-            </form>
-        </div>
 
+        </div>
+        <div class="button-Text-manipulace">
+            <form action="textUser/resetSession.php" method="post">
+                <button class="buttonReset" type="submit">reset</button>
+            </form>
+            <button class=buttonApi id="fetchApiButton">Načíst text</button>
+        </div>
         <div id="editor" data-content="<?php echo htmlspecialchars($editorContent, ENT_QUOTES, 'UTF-8'); ?>">
             <div>
                 <div>
                     <?php
-                    // Pokud je v session text z databáze, vypíšeme ho
                     if (!empty($_SESSION['text-from-database'])) {
                         echo "<p>" . nl2br(htmlspecialchars($_SESSION['text-from-database'])) . "</p>";
-                    }
-                    // Pokud není text z databáze, vypíšeme vygenerovaný text (foreach)
-                    elseif (!empty($_SESSION['generated_text']) && is_array($_SESSION['generated_text'])) {
+                    } elseif (!empty($_SESSION['generated_text']) && is_array($_SESSION['generated_text'])) {
                         foreach ($_SESSION['generated_text'] as $paragraph) {
                             echo "<p>" . ucfirst($paragraph) . "." . "</p>";
+                    ?>
+                            <br>
+                    <?php
                         }
                     } else {
                         echo "<p>Zde se zobrazí text.</p>";
@@ -227,6 +230,7 @@ $editorContent = isset($_SESSION['text-from-database']) ? $_SESSION['text-from-d
     <script src="js.js"></script>
     <script src="script_errors.js"></script>
     <script src="pokusy.js"></script>
+    <script src="Javascript/api.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script>
 

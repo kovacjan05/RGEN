@@ -84,34 +84,35 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("saveForm").style.display = "block";
     }
 
+    // Odeslání formuláře
     document.querySelector("#saveForm form").addEventListener("submit", function (event) {
+        event.preventDefault(); // Zabráníme okamžitému odeslání formuláře
+
         var textNameInput = document.querySelector("#saveForm input[name='Textname']");
-        var emptyErrorMessage = document.getElementById("error-message-savetext");
         var duplicateErrorMessage = document.getElementById("error-message-savetext-duplicate");
 
-        // Skrytí chybových hlášek před validací
-        emptyErrorMessage.style.display = "none";
+        // Skrytí chybové hlášky na začátku
         duplicateErrorMessage.style.display = "none";
 
-        if (textNameInput.value.trim() === "") {
-            event.preventDefault();
-            emptyErrorMessage.style.display = "block";
-            return;
-        }
-
-        // AJAX kontrola na duplikaci názvu
-        fetch("textUser/check_duplicate.php", {
+        // Odeslání dat na server
+        fetch("textUser/saveText.php", {
             method: "POST",
-            body: new URLSearchParams({ name: textNameInput.value.trim() }),
+            body: new URLSearchParams({ Textname: textNameInput.value.trim() }),
             headers: { "Content-Type": "application/x-www-form-urlencoded" }
         })
-            .then(response => response.text())
+            .then(response => response.json()) // Zpracování JSON odpovědi
             .then(data => {
-                if (data === "duplicate") {
-                    duplicateErrorMessage.style.display = "block"; // Pouze zobrazí chybovou hlášku
-                    event.preventDefault(); // Zabrání odeslání
+                console.log("Odpověď ze serveru:", data);
+
+                if (data.status === "error") {
+                    // Zobrazíme chybovou zprávu
+                    duplicateErrorMessage.textContent = data.message; // Nastavíme text chyby
+                    duplicateErrorMessage.style.display = "block"; // Zobrazíme label
+                } else if (data.status === "success") {
+                    // Přesměrování na úspěšnou stránku
+                    window.location.href = "../textUser/findText.php";
                 }
             })
-            .catch(error => console.error("Chyba při ověřování duplikace:", error));
+            .catch(error => console.error("Chyba při odesílání formuláře:", error));
     });
 });

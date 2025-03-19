@@ -3,7 +3,8 @@ session_start();
 require_once '../conn_db/connected_database.php';
 
 if (!isset($_SESSION['username'])) {
-    exit("error: Uživatel není přihlášen.");
+    echo json_encode(["status" => "error", "message" => "Uživatel není přihlášen."]);
+    exit();
 }
 
 $username = $_SESSION['username'];
@@ -17,16 +18,19 @@ $result = $stmt->get_result();
 if ($row = $result->fetch_assoc()) {
     $userId = $row['id'];
 } else {
-    exit("error: Uživatel nenalezen.");
+    echo json_encode(["status" => "error", "message" => "Uživatel nenalezen."]);
+    exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($_POST['Textname'])) {
-        exit("error: Název textu je povinný.");
+        echo json_encode(["status" => "error", "message" => "Název textu je povinný."]);
+        exit();
     }
 
     if (empty($_SESSION['editor_content'])) {
-        exit("error: Obsah článku nesmí být prázdný.");
+        echo json_encode(["status" => "error", "message" => "Obsah článku nesmí být prázdný."]);
+        exit();
     }
 
     $name = trim($_POST['Textname']);
@@ -38,8 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute();
 
     if ($stmt->get_result()->num_rows > 0) {
+        echo json_encode(["status" => "error", "message" => "Název textu už je jednou uložen."]);
         header("Location: ../textUser/findText.php");
-        exit("error: Text s tímto názvem už máte uložený.");
+        exit();
     }
 
     // Uložení do databáze
@@ -49,10 +54,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt->execute()) {
         $_SESSION['text-from-database'] = null;
         $_SESSION['generated_text'] = null;
-        exit("success");
+        echo json_encode(["status" => "success", "message" => "Text byl úspěšně uložen."]);
+        header("Location: ../textUser/findText.php");
+        exit();
     } else {
-        exit("error: Chyba při ukládání do databáze.");
+        echo json_encode(["status" => "error", "message" => "Chyba při ukládání do databáze."]);
+        header("Location: ../textUser/findText.php");
+        exit();
     }
+    header("Location: ../textUser/findText.php");
 }
 
 $conn->close();

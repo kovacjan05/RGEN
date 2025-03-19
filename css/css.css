@@ -294,6 +294,16 @@ form select:focus {
     background-color: #929292;
 }
 
+.button-panel input[type="text"] {
+
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+
+}
+
 /* Modal styling */
 .modal-overlay {
     position: fixed;
@@ -382,5 +392,30 @@ input[type="password"] {
 #saveForm input[type="text"] {
     width: 30vh;
     border: 2px solid rgb(146, 146, 146);
+
+}
+
+.button-Text-manipulace {
+    height: 9vh;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.button-Text-manipulace button {
+    width: 50px;
+    height: 36px;
+    border: none;
+    background-color: rgb(212, 212, 212);
+    color: black;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+
+}
+
+.button-Text-manipulace button:hover {
+    background-color: #929292;
 
 }
