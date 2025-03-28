@@ -32,41 +32,91 @@ selectElement.addEventListener("blur", (event) => {
 
 
 //////////        modal login       ////////////
+document.addEventListener('DOMContentLoaded', function () {
+    // Najdeme všechny potřebné elementy s ošetřením null hodnot
+    alert("vitej");
+    const loginButton = document.getElementById('login-button');
+    const signupButton = document.getElementById('signup-button');
+    const loginModal = document.getElementById('login-modal');
+    const signupModal = document.getElementById('signup-modal');
+    const closeLoginModalButton = document.getElementById('close-login-modal');
+    const closeSignupModalButton = document.getElementById('close-signup-modal');
 
+    // Ošetření pro contentToBlur - každý element ověříme zvlášť
+    const contentToBlur = [
+        document.querySelector('main'),
+        document.querySelector('.header'),
+        document.querySelector('.leva-strana')
+    ].filter(element => element !== null); // Filtrujeme pouze existující elementy
 
-const loginButton = document.getElementById('login-button');
-const signupButton = document.getElementById('signup-button');
-const loginModal = document.getElementById('login-modal');
-const signupModal = document.getElementById('signup-modal');
-const closeLoginModalButton = document.getElementById('close-login-modal');
-const closeSignupModalButton = document.getElementById('close-signup-modal');
-const contentToBlur = [document.querySelector('main'), document.querySelector('.header'), document.querySelector('.leva-strana')];
+    // Funkce pro ověření existence elementů před přístupem
+    function safeAddListener(element, event, callback) {
+        if (element) {
+            element.addEventListener(event, callback);
+        } else {
+            console.error(`Element ${element} nebyl nalezen!`);
+        }
+    }
 
-//Open login modal
-loginButton.addEventListener('click', () => {
-    loginModal.style.display = 'flex';
-    contentToBlur.forEach(element => element.classList.add('blurred'));
-    console.log("past");
+    // Open login modal
+    safeAddListener(loginButton, 'click', () => {
+        if (loginModal) {
+            loginModal.style.display = 'flex';
+            contentToBlur.forEach(element => {
+                if (element) element.classList.add('blurred');
+            });
+        }
+    });
+
+    // Close login modal
+    safeAddListener(closeLoginModalButton, 'click', () => {
+        if (loginModal) {
+            loginModal.style.display = 'none';
+            contentToBlur.forEach(element => {
+                if (element) element.classList.remove('blurred');
+            });
+        }
+    });
+
+    // Open signup modal
+    safeAddListener(signupButton, 'click', () => {
+        if (signupModal) {
+            signupModal.style.display = 'flex';
+            contentToBlur.forEach(element => {
+                if (element) element.classList.add('blurred');
+            });
+        }
+    });
+
+    // Close signup modal
+    safeAddListener(closeSignupModalButton, 'click', () => {
+        if (signupModal) {
+            signupModal.style.display = 'none';
+            contentToBlur.forEach(element => {
+                if (element) element.classList.remove('blurred');
+            });
+        }
+    });
+
+    // Ošetření registračního formuláře
+    const registrForm = document.getElementById('registr-form');
+    if (registrForm) {
+        registrForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Zde by byla validace a odeslání dat
+            // Pro ukázku jen zavřeme modal po 1 vteřině
+            setTimeout(() => {
+                if (signupModal) {
+                    signupModal.style.display = 'none';
+                    contentToBlur.forEach(element => {
+                        if (element) element.classList.remove('blurred');
+                    });
+                }
+            }, 1000);
+        });
+    }
 });
-
-//Close login modal
-closeLoginModalButton.addEventListener('click', () => {
-    loginModal.style.display = 'none';
-    contentToBlur.forEach(element => element.classList.remove('blurred'));
-});
-
-//Open signup modal
-signupButton.addEventListener('click', () => {
-    signupModal.style.display = 'flex';
-    contentToBlur.forEach(element => element.classList.add('blurred'));
-});
-
-//Close signup modal
-closeSignupModalButton.addEventListener('click', () => {
-    signupModal.style.display = 'none';
-    contentToBlur.forEach(element => element.classList.remove('blurred'));
-});
-
 
 
 function openUserMenu() {
@@ -83,7 +133,7 @@ function openUserMenu() {
 }
 
 
-document.getElementById('logout-button').addEventListener('click', function () {
+document.getElementById('logoutButton').addEventListener('click', function () {
     fetch('logout.php')
         .then(response => {
             if (response.ok) {

@@ -2,11 +2,10 @@
 session_start();
 require_once '../conn_db/connected_database.php';
 
-// Reset obou session proměnných
 $_SESSION['generated_text'] = null;
 $_SESSION['text-from-database'] = null;
 
-// 1️⃣ Pokud se odeslal formulář pro generování textu
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['odstavce'], $_POST['slovaOdstavec'])) {
     $pocetOdstavcu = (int)$_POST['odstavce'];
     $slovaOdstavec = (int)$_POST['slovaOdstavec'];
@@ -84,14 +83,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['odstavce'], $_POST['s
     }
 }
 
-// 2️⃣ Pokud se odeslal formulář s "loadText", načte text z databáze
 
-$userId = $_SESSION['userId']; // Získání user ID
+
+$userId = $_SESSION['userId'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loadText'], $_POST['name'])) {
     $textName = $_POST['name'];
 
-    // 1️⃣ Nejprve získáme všechny texty, které má uživatel uložené
+
     $stmt = $conn->prepare("SELECT name FROM slovniky.user_texts WHERE user_id = ?");
     $stmt->bind_param("i", $userId);
     $stmt->execute();
@@ -103,9 +102,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loadText'], $_POST['n
     }
     $stmt->close();
 
-    // 2️⃣ Ověříme, zda daný text patří tomuto uživateli
+
     if (in_array($textName, $userTexts)) {
-        // 3️⃣ Pokud ano, načteme obsah textu
+
         $stmt = $conn->prepare("SELECT text_content FROM slovniky.user_texts WHERE name = ? AND user_id = ?");
         $stmt->bind_param("si", $textName, $userId);
         $stmt->execute();

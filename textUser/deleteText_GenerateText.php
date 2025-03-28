@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     if (!isset($_POST['name']) || empty($_POST['name'])) {
         exit("Chyba: Název textu chybí.");
     }
-    print_r("request gut");
+
     $textName = $_POST['name'];
 
     // Smazání textu z databáze

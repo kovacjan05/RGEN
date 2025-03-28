@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
-    // Input validation
+
     if (empty($firstname) || empty($lastname) || empty($username) || empty($password)) {
         $errors[] = 'Všechna pole musí být vyplněna.';
     } elseif (strlen($password) < 8) {
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        // Check if username already exists
+
         $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->bind_param('s', $username);
         $stmt->execute();
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result->num_rows > 0) {
             $errors[] = 'Uživatelské jméno již existuje.';
         } else {
-            // Insert data into the database with hashed password
+
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $stmt = $conn->prepare("INSERT INTO users (firstname, lastname, username, password) VALUES (?, ?, ?, ?)");
             $stmt->bind_param('ssss', $firstname, $lastname, $username, $hashed_password);
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Send JSON response
+
     if (!empty($errors)) {
         echo json_encode(['errors' => $errors]);
     } else {

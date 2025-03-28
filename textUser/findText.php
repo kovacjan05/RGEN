@@ -34,7 +34,7 @@ $result = $stmt->get_result();
 $_SESSION['findTexts'] = [];
 
 while ($row = $result->fetch_assoc()) {
-    $_SESSION['findTexts'][] = $row['name']; // Ukládáme pouze jméno textu
+    $_SESSION['findTexts'][] = $row['name']; // uklada se pouze jméno textu
     print_r($row['name']);
 }
 print_r("///////////////////////////////////////////");
@@ -42,5 +42,5 @@ print_r($_SESSION['findTexts']);
 $stmt->close();
 $conn->close();
 header("Refresh:3");
-header("Location: ../index.php"); // Přesměrování zpět na hlavní stránku
+header("Location: ../index.php");
 exit();

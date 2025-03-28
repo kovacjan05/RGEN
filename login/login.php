@@ -35,6 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn->close();
     header("Location: ../textUser/findText.php");
 } else {
-    http_response_code(405); // Metoda není povolena
+    http_response_code(405); // Nespojeno
     exit;
 }

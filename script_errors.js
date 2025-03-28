@@ -24,14 +24,13 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
     })
         .then((response) => {
             if (!response.ok) {
-                // Pokud server vrátil chybu (např. 401 Unauthorized)
+
                 document.getElementById("error-message").style.display = "block";
-                document.getElementById("password").value = ""; // Vymazání hesla
+                document.getElementById("password").value = "";
                 throw new Error("Přihlášení neúspěšné");
             }
-            // Přihlášení bylo úspěšné
 
-            window.location.reload(); // Aktualizace stránky nebo přesměrování
+            window.location.reload();
             alert("Úspěšné přihlášení");
         })
         .catch((error) => {
@@ -153,11 +152,6 @@ document.getElementById("textForm").addEventListener("submit", function (e) {
 
         } else {
             input.style.border = "";
-            // if (typeof prvek === 'number' && prvek > 0) {
-            //     console.log('Prvek je číslo a je větší než nula.');
-            // } else {
-            //     console.log('Prvek není číslo nebo není větší než nula.');
-            // }
         }
     });
 

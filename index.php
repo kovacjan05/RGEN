@@ -68,6 +68,9 @@ $editorContent = isset($_SESSION['text-from-database']) ? $_SESSION['text-from-d
 
     <div class="logoutBox" style="display: none;">
         <div class="logoutBoxText">
+
+
+            <button class="close-button">&times;</button>
             <div class="nadpis">
                 <?php echo htmlspecialchars($username ?? ''); ?>
             </div>
@@ -230,10 +233,17 @@ $editorContent = isset($_SESSION['text-from-database']) ? $_SESSION['text-from-d
     <script src="js.js"></script>
     <script src="script_errors.js"></script>
     <script src="pokusy.js"></script>
-    <script src="Javascript/api.js"></script>
+    <script src="JavaScript/api.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButton = document.querySelector('.close-button');
+            const logoutBox = document.querySelector('.logoutBox');
 
+            closeButton.addEventListener('click', function() {
+                logoutBox.style.display = 'none';
+            });
+        });
     </script>
 
 </body>

@@ -45,6 +45,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+///////////////////////////    logout display none /////////
+document.addEventListener('DOMContentLoaded', function () {
+    const closeButton = document.querySelector('.close-button');
+    const logoutBox = document.querySelector('.logoutBox');
+
+    closeButton.addEventListener('click', function () {
+        logoutBox.style.display = 'none';
+    });
+});
+
 ///////////////////////////    save text    ////////////////
 
 document.addEventListener("DOMContentLoaded", function () {
